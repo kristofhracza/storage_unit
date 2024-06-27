@@ -1,7 +1,6 @@
 // Modules
 const express = require("express");
 const expressFileUpload = require("express-fileupload");
-const path = require("path");
 const http = require("http");
 const zip = require("adm-zip");
 const fs = require("fs");
@@ -11,14 +10,13 @@ const app = express();
 const server = http.createServer(app);
 
 app.set("view engine", "ejs")
-app.use(express.static(path.join(__dirname, "./public",)));
+app.use(express.static("./public",));
 app.use(expressFileUpload());
 app.use(express.urlencoded({ extended: true }));
 
 // DIRS
-const PUBLICDIR = path.join(__dirname, "./public",)
-const UPLOADDIR = path.join(__dirname, "./public/uploads",)
-const BACKUPSDIR = path.join(__dirname, "./public/backups",)
+const UPLOADDIR = "./public/uploads"
+const BACKUPSDIR = "./public/backups"
 
 // Archiving
 const makeZip = async (name) =>  {
@@ -43,10 +41,9 @@ app.get("/success",(req,res) => {
 app.get("/archives",(req,res) => {
     // Get list of all archives
     let fileArray = [];
-    fs.readdirSync(BACKUPSDIR).forEach(file => { fileArray.push([file,`file:/${BACKUPSDIR}/${file}`])})
+    fs.readdirSync(BACKUPSDIR).forEach(file => { fileArray.push([file,`${BACKUPSDIR}/${file}`])})
     res.render("pages/archives",{archives: fileArray});
 })
-
 
 
 // Uploading images
