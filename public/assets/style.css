@@ -104,3 +104,33 @@ input[type="submit"]:hover{
     color: black;
     font-weight: 700;
 }
+
+
+.nav{
+    display: block;
+    position: absolute;
+    width: fit-content;
+    right: 0;
+    bottom:0;
+}
+.navbox{
+    font-weight: bold;
+    display:inline;
+    float:left;
+    text-align: center;
+    background: var(--dark-blue);
+    padding:15px;
+    margin:10px;
+    border-radius:100px;
+    transition: 0.1s;
+
+}
+.navbox:hover{
+    background-color: var(--light-blue);
+}
+.navbox a{
+    text-decoration: none;
+}
+.navbox:hover a{
+    color:black;
+}
