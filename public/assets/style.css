@@ -5,8 +5,11 @@
     --background-color: #212226;
     --dark-blue: #3E54D3;
     --medium-blue: #4F80E2;
-    --light-blue: #15CDCA;
-    --ligh-green: #4FE0B6;
+    --light-blue: #13b1e6;
+    --box-bg: rgb(62,84,211);
+    --box-grad: linear-gradient(90deg, rgba(62,84,211,1) 22%, rgba(79,128,226,1) 58%, rgba(19,177,230,1) 93%); 
+    --error-bg:rgb(255,108,0);
+    --error-grad: linear-gradient(90deg, rgba(255,108,0,1) 14%, rgba(255,143,0,1) 50%, rgba(255,156,0,1) 93%);
 }
 
 body,html {
@@ -42,13 +45,22 @@ input{
     border-radius: 5px;
     border:0;
     outline: 0;
-    transition:0.3s;
+    transition:0.2s;
     font-family: "Inter";
 }
+input::placeholder{
+    color: black;
+    opacity: 1; 
+    transition: 0.2s;
+}
 input:focus {
-    background-color: var(--medium-blue);
+    background-color: var(--dark-blue);
     color:whitesmoke;
     outline: 0;
+}
+input:focus::placeholder {
+    background-color: var(--dark-blue);
+    color:whitesmoke;
 }
 input[type="submit"]{
     color:whitesmoke;
@@ -56,28 +68,39 @@ input[type="submit"]{
     background-color: var(--dark-blue);
     padding: 10px;
 }
-::placeholder{
-    color: black;
-    opacity: 1; 
+input[type="submit"]:hover{
+    background-color: var(--light-blue);
+    color:black;
 }
 
 
 
 .box{
     text-align: center;
-    background-color: var(--dark-blue);
+    background: var(--box-grad);
     padding:25px;
     margin:10px;
     border-radius: 15px;
-    transition: 0.2s;
+    transition: 0.1s;
 }
 .box:hover{
-    transform: rotate(15deg);
+    cursor: pointer;
+    font-size: large;
 }
 #archive-box a{
     text-decoration: none;
     transition: 0.4s;
 }
-#archive-box a:hover{
-    text-decoration:  underline;
+
+
+
+.error{
+    text-align: left;
+    background: var(--error-grad);
+    padding:15px;
+    border-radius: 10px;
+}
+.error p{
+    color: black;
+    font-weight: 700;
 }

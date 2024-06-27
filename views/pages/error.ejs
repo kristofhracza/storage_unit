@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Error</title>
+    <title>cheapstore - error</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
     <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -11,9 +12,11 @@
         <div>
             <h1>cheapstore</h1>
             <h3>Something went wrong 😥</h3>
-            <p>
-                <%= (typeof(err) == "undefined" ) ? "No error(s) to be displayed!" : err  %>            
-            </p>
+            <div class="error">
+                <p>
+                    <%= (typeof(err) == "undefined" ) ? "No error(s) to be displayed!" : err  %>            
+                </p>
+            </div>
         </div>
     </div>
 </body>
