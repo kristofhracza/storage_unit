@@ -19,7 +19,7 @@ const UPLOADDIR = "./public/uploads"
 const BACKUPSDIR = "./public/backups"
 
 // Archiving
-const makeZip = async (name) =>  {
+const makeZip = (name,res) =>  {
     try{
         const temZip = new zip();
         const output = `${BACKUPSDIR}/${name}.zip`;
@@ -47,29 +47,28 @@ app.get("/archives",(req,res) => {
 
 
 // Uploading images
-app.post("/upload", (req,res) => {
-    if (req.body.name == "" || !req.files || Object.keys(req.files).length === 0) return res.status(500).render("pages/error",{err:"Not enough input was given!"});
+app.post("/upload", async (req,res) => {
+    if (req.body.name == "" || !req.files || Object.keys(req.files).length === 0) return res.render("pages/error",{err:"Not enough input was given!"});
     if (!fs.existsSync(`${BACKUPSDIR}/${req.body.name}.zip`)){
         fs.mkdirSync(`${UPLOADDIR}/${req.body.name}`);
         
-        if (req.files.img.length > 0) req.files.img.forEach(img => { img.mv(`${UPLOADDIR}/${req.body.name}/${img.name}`); });
-        else req.files.img.mv(`${UPLOADDIR}/${req.body.name}/${req.files.img.name}`);
+        if (req.files.img.length > 0) {
+            for (const img of req.files.img) {
+                await img.mv(`${UPLOADDIR}/${req.body.name}/${img.name}`);
+            }
+        }
+        else await req.files.img.mv(`${UPLOADDIR}/${req.body.name}/${req.files.img.name}`);
         
-        res.redirect(`/NDIw?name=${req.body.name}`);
+        await archiveFile(req.body.name,res);
     }else res.render("pages/error",{err:"Album already exists"});
 });
 
 // Archive files sent over
-// Obfuscated name to evade detection
-// IT'S DONE THIS WAY BECAUSE `makeZip` is asynchronous -- Will make it better
-app.get("/NDIw",(req,res) => {
-    if (req.query.name){
-        makeZip(req.query.name);
-        fs.rmdirSync(`${UPLOADDIR}/${req.query.name}`,{ recursive: true, force: true });
-        res.redirect("/success");
-    }else res.render("pages/error",{err:"No name specified - Probably requested manually"});
-})
-
+const archiveFile = async (fileName,res) => {
+    makeZip(fileName,res);
+    fs.rmdirSync(`${UPLOADDIR}/${fileName}`,{ recursive: true, force: true });
+    res.redirect("/success");
+}
 
 // For local deployment
 server.listen(8080, "0.0.0.0");
