@@ -1,0 +1,83 @@
+@import url("https://fonts.googleapis.com/css?family=Inter");
+@import url("https://fonts.googleapis.com/css?family=Rubik");
+
+:root{
+    --background-color: #212226;
+    --dark-blue: #3E54D3;
+    --medium-blue: #4F80E2;
+    --light-blue: #15CDCA;
+    --ligh-green: #4FE0B6;
+}
+
+body,html {
+    height:100%;
+    background-color: var(--background-color);
+}
+
+h1,h2,h3,p,a{
+    color:whitesmoke
+}
+h1,h2,h3{
+    font-family: "Rubik";
+}
+p,a{
+    font-family: "Inter";
+}
+
+
+.flex{
+    display: flex;
+    margin: 15px;
+}
+.center {
+    justify-content: center;
+}
+
+
+
+input{
+    background-color: whitesmoke;
+    margin: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    border:0;
+    outline: 0;
+    transition:0.3s;
+    font-family: "Inter";
+}
+input:focus {
+    background-color: var(--medium-blue);
+    color:whitesmoke;
+    outline: 0;
+}
+input[type="submit"]{
+    color:whitesmoke;
+    font-weight: bold;
+    background-color: var(--dark-blue);
+    padding: 10px;
+}
+::placeholder{
+    color: black;
+    opacity: 1; 
+}
+
+
+
+.box{
+    text-align: center;
+    background-color: var(--dark-blue);
+    padding:25px;
+    margin:10px;
+    border-radius: 15px;
+    transition: 0.2s;
+}
+.box:hover{
+    transform: rotate(15deg);
+}
+#archive-box a{
+    text-decoration: none;
+    transition: 0.4s;
+}
+#archive-box a:hover{
+    text-decoration:  underline;
+}

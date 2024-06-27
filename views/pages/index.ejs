@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cheapstore</title>
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+    <div class="flex center">
+        <div id="intro">
+            <h1>cheapstore</h1>
+            <p>
+                If you're both paranoid about privacy and refuse to pay for storage then upload your files!
+            </p>
+        </div>
+    </div>
+    <div class="flex center">
+        <div id="upload">
+            <form action="/upload" method="POST" enctype="multipart/form-data">
+                <input name="name" type="text" placeholder="Album name" required>
+                <input name="img" type="file" multiple="multiple" required>
+                <br>
+                <input type="submit" value="Upload files 🚀">
+            </form>
+        </div>
+    </div>
+</body>
+</html>
