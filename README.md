@@ -1,5 +1,5 @@
 # cheapstore 🤑
-A simple solution for stroing backups.
+A simple solution for storing backups.
 
 ![showcase](./public/assets/show.png)
 

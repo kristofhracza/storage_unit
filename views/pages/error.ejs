@@ -12,7 +12,7 @@
             <h1>cheapstore</h1>
             <h3>Something went wrong 😥</h3>
             <p>
-                <%= err %>
+                <%= (typeof(err) == "undefined" ) ? "No error(s) to be displayed!" : err  %>            
             </p>
         </div>
     </div>

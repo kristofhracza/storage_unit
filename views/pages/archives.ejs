@@ -13,13 +13,21 @@
         </div>
     </div>
     <div class="flex center">
-        <% archives.forEach(file => { %>
-            <div class="flex box" id="archive-box" onclick="window.open('<%= file[1]%>')">
+        <% if (archives.length > 0)  { %>
+            <% archives.forEach(file => { %>
+                <div class="flex box" id="archive-box" onclick="window.open('<%= file[1]%>')">
+                    <h2>
+                        <a href="<%= file[1]%>"><%= file[0]%></a>
+                    </h2>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <div class="flex box" id="archive-box"">
                 <h2>
-                    <a href="<%= file[1]%>"><%= file[0]%></a>
+                    <p>You don't have any archives yet...</p>
                 </h2>
             </div>
-        <% }); %>
+        <%} %>
     </div>
 </body>
 </html>
