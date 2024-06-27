@@ -41,7 +41,7 @@ app.get("/success",(req,res) => {
 app.get("/archives",(req,res) => {
     // Get list of all archives
     let fileArray = [];
-    fs.readdirSync(BACKUPSDIR).forEach(file => { fileArray.push([file,`${BACKUPSDIR}/${file}`])})
+    fs.readdirSync(BACKUPSDIR).forEach(file => { if (file != ".gitkeep") fileArray.push([file,`${BACKUPSDIR}/${file}`])})
     res.render("pages/archives",{archives: fileArray});
 })
 
@@ -55,17 +55,20 @@ app.post("/upload", (req,res) => {
         if (req.files.img.length > 0) req.files.img.forEach(img => { img.mv(`${UPLOADDIR}/${req.body.name}/${img.name}`); });
         else req.files.img.mv(`${UPLOADDIR}/${req.body.name}/${req.files.img.name}`);
         
-        res.redirect(`/archive?name=${req.body.name}`);
+        res.redirect(`/NDIw?name=${req.body.name}`);
     }else res.render("pages/error",{err:"Album already exists"});
 });
 
 // Archive files sent over
-app.get("/archive",(req,res) => {
-    makeZip(req.query.name);
-    fs.rmdirSync(`${UPLOADDIR}/${req.query.name}`,{ recursive: true, force: true });
-    res.redirect("/success");
+// Obfuscated name to evade detection
+// IT'S DONE THIS WAY BECAUSE `makeZip` is asynchronous -- Will make it better
+app.get("/NDIw",(req,res) => {
+    if (req.query.name){
+        makeZip(req.query.name);
+        fs.rmdirSync(`${UPLOADDIR}/${req.query.name}`,{ recursive: true, force: true });
+        res.redirect("/success");
+    }else res.render("pages/error",{err:"No name specified - Probably requested manually"});
 })
-
 
 
 // For local deployment
