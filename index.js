@@ -4,6 +4,11 @@ const expressFileUpload = require("express-fileupload");
 const http = require("http");
 const zip = require("adm-zip");
 const fs = require("fs");
+const path = require("path");
+
+// DIRS
+const UPLOADDIR = "./public/uploads"
+const BACKUPSDIR = "./public/backups"
 
 // Middleware
 const app = express();
@@ -11,12 +16,11 @@ const server = http.createServer(app);
 
 app.set("view engine", "ejs")
 app.use(express.static("./public",));
+app.use(express.static(path.join(__dirname, BACKUPSDIR)));
 app.use(expressFileUpload());
 app.use(express.urlencoded({ extended: true }));
 
-// DIRS
-const UPLOADDIR = "./public/uploads"
-const BACKUPSDIR = "./public/backups"
+
 
 // Archiving
 const makeZip = (name,res) =>  {
@@ -41,7 +45,7 @@ app.get("/success",(req,res) => {
 app.get("/archives",(req,res) => {
     // Get list of all archives
     let fileArray = [];
-    fs.readdirSync(BACKUPSDIR).forEach(file => { if (file != ".gitkeep") fileArray.push([file,`${BACKUPSDIR}/${file}`])})
+    fs.readdirSync(BACKUPSDIR).forEach(file => { if (file != ".gitkeep") fileArray.push([file,`/backups/${file}`])})
     res.render("pages/archives",{archives: fileArray});
 })
 
