@@ -1,4 +1,4 @@
-# cheapstore 🤑
+# Storage Unit 🤑
 A simple solution for storing backups.
 
 ![showcase](./public/assets/show.png)
